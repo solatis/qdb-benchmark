@@ -1,8 +1,8 @@
 if (!bench.chart) bench.chart = {};
 
-bench.chart.selector = function() {
+bench.chart.selector = function(data) {
     var dispatch = d3.dispatch("select");
-    var div, span;
+    var div, select;
 
     var chart = function(container) {
         div = container.append("div").classed("header", true);
@@ -11,18 +11,33 @@ bench.chart.selector = function() {
             .append("button")
             .classed("left", true)
             .text("<")
-            .on("click", function() { dispatch.select(-1); });            
-        span= div.append("span");
+            .on("click", function() { dispatch.select(-1, /*absolute=*/false); });
+        select = div.append("select")
+            .attr("name", "series-list")
+            .on("change", function() {
+                var selectedValue = d3.event.target.value
+                dispatch.select(selectedValue, /*absolute=*/true);
+            });
         div
             .append("button")
             .classed("right", true)
             .text(">")
-            .on("click", function() { dispatch.select(1); });
+            .on("click", function() { dispatch.select(1, /*absolute=*/false); });
+
+        var options = select.selectAll("option")
+            .data(data)
+            .enter()
+            .append("option");
+        var v = 0;
+        options.text(function (d) {
+            return d.name;
+        })
+            .attr("value", function (d) { return v++; });
     }
 
-    chart.text = function(value) {        
-        console.log(value);
-        span.text(value);
+    chart.text = function(value, key) {
+        console.log(value, key);
+        select.property("value", value);
         return chart;
     }
 

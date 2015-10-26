@@ -14,9 +14,13 @@ bench.chart.bubble = function() {
     function chart(container) {
 
         header = bench.chart
-            .selector()
-            .on("select", function(inc) {
-                selectedSerie += testSeries.length+inc;
+            .selector(testSeries)
+            .on("select", function(inc, absolute) {
+                inc = Number(inc);
+                if (absolute)
+                    selectedSerie = inc;
+                else
+                    selectedSerie += testSeries.length + inc;
                 update();
             });
         header(container);

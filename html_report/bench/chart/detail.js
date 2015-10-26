@@ -19,9 +19,13 @@ bench.chart.lineChart = function() {
     function chart(container) {
 
         header = bench.chart
-            .selector()
-            .on("select", function(inc) {
-                selectedSerie+=series.length+inc;
+            .selector(series)
+            .on("select", function(inc, absolute) {
+                inc = Number(inc);
+                if (absolute)
+                    selectedSerie = inc;
+                else
+                    selectedSerie += series.length + inc;
                 update();
             });
         header(container);
@@ -41,10 +45,9 @@ bench.chart.lineChart = function() {
     }
 
     chart.update = update;
-    function update() {      
-
-        var serie = series[selectedSerie%series.length];
-        header.text(serie.name);
+    function update() {
+        var serie = series[selectedSerie % series.length];
+        header.text(selectedSerie % series.length, serie.name);
 
         var lines = serie.lines(data);
         var timeMax = d3.max(lines[0], function(d){return d.time})

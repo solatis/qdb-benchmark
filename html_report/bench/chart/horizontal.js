@@ -14,9 +14,13 @@ bench.chart.horizontal = function() {
     function chart(container) {
 
         header = bench.chart
-            .selector()
-            .on("select", function(inc) {
-                selectedSerie += testSeries.length+inc;
+            .selector(testSeries)
+            .on("select", function(inc, absolute) {
+                inc = Number(inc);
+                if (absolute)
+                    selectedSerie = inc;
+                else
+                    selectedSerie += testSeries.length + inc;
                 update();
             });
         header(container);
@@ -45,10 +49,8 @@ bench.chart.horizontal = function() {
     }
 
     function update() {
-
-        var serie = testSeries[selectedSerie%testSeries.length];
-
-        header.text(serie.name);
+        var serie = testSeries[selectedSerie % testSeries.length];
+        header.text(selectedSerie % testSeries.length, serie.name);
 
         var threadsScale = d3.scale.ordinal()
             .domain(bench.getThreadCounts(data))

@@ -134,3 +134,22 @@ div.detail > svg {
     display: inline-block;
     text-align: center;
 }
+
+.header > select {
+    -webkit-appearance: none;  /*Removes default chrome and safari style*/
+    -moz-appearance: none;     /*Removes default style Firefox*/
+    /*background-color: inherit;*/ /* Doesn't work on IE */
+    background-color: #0b334c;
+    border: none;   /*Removes border*/
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    overflow: hidden;
+    text-align: center;
+    width: 180px;
+}
+
+.header > select::-ms-expand {
+    display: none;
+}

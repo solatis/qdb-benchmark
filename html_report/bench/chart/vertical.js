@@ -12,11 +12,15 @@ bench.chart.vertical = function() {
     var testSeries = d3.values(bench.series.tests);
 
     function chart(container) {
-
+        console.log("chart(container)");
         header = bench.chart
-            .selector()
-            .on("select", function(inc) {
-                selectedSerie += testSeries.length+inc;
+            .selector(testSeries)
+            .on("select", function(inc, absolute) {
+                inc = Number(inc);
+                if (absolute)
+                    selectedSerie = inc;
+                else
+                    selectedSerie += testSeries.length + inc;
                 update();
             });
         header(container);
@@ -44,9 +48,8 @@ bench.chart.vertical = function() {
     }
 
     function update() {
-
-        var serie = testSeries[selectedSerie%testSeries.length];
-        header.text(serie.name);
+        var serie = testSeries[selectedSerie % testSeries.length];
+        header.text(selectedSerie % testSeries.length, serie.name);
 
         var xScale = d3.scale.ordinal()
             .domain(bench.getContentSizes(data))
