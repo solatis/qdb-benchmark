@@ -8,11 +8,11 @@ var unit = (function(){
             value/=div;
             m++;
         }
-        var suffix = mulipliers[m] + unit;
+        var suffix = " " + mulipliers[m] + unit;
         if (value < 10) return value.toFixed(1) + suffix;
         else return value.toFixed(0) + suffix;
     }
-    
+
     return {
         none: function(x) {
             return formatValue(x, 1000, "")
@@ -32,11 +32,11 @@ var unit = (function(){
 
         hertz: function(x) {
             return formatValue(x, 1000, "Hz");
-        }, 
+        },
 
         kilohertz: function(x) {
             return formatValue(x*1000, 1000, "Hz");
-        }, 
+        },
 
         millisecond: function(x) {
             return formatValue(x/1000.0, 1000, "s")
