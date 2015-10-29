@@ -26,6 +26,7 @@ bench.chart.lineChart = function() {
                     selectedSerie = inc;
                 else
                     selectedSerie += series.length + inc;
+                    selectedSerie += (series.length + inc) % series.length;
                 update();
             });
         header(container);

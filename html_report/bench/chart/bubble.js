@@ -20,7 +20,7 @@ bench.chart.bubble = function() {
                 if (absolute)
                     selectedSerie = inc;
                 else
-                    selectedSerie += testSeries.length + inc;
+                    selectedSerie += (testSeries.length + inc) % testSeries.length;
                 update();
             });
         header(container);
@@ -48,7 +48,6 @@ bench.chart.bubble = function() {
     }
 
     function update() {
-
         var serie = testSeries[selectedSerie%testSeries.length];
 
         var sizeValues = bench.getContentSizes(data);
@@ -63,7 +62,7 @@ bench.chart.bubble = function() {
             .domain(bench.getValueExtent(data, serie))
             .range([10,d]);
 
-        header.text(serie.name);
+        header.text(selectedSerie % testSeries.length, serie.name);
 
         var circles = graph
             .selectAll("circle")

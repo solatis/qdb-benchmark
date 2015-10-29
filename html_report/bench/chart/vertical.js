@@ -20,7 +20,7 @@ bench.chart.vertical = function() {
                 if (absolute)
                     selectedSerie = inc;
                 else
-                    selectedSerie += testSeries.length + inc;
+                    selectedSerie += (testSeries.length + inc) % testSeries.length;
                 update();
             });
         header(container);
