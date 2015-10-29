@@ -58,7 +58,7 @@ bench.chart.bubble = function() {
         var sizeScale = d3.scale.ordinal().domain(sizeValues).rangePoints([d/2+padding,width-d/2-padding]);
         var threadsScale = d3.scale.ordinal().domain(threadsValues).rangePoints([d/2+padding,height-d/2-padding]);
 
-        var valueScale = d3.scale.linear()
+        var valueScale = d3.scale.log()
             .domain(bench.getValueExtent(data, serie))
             .range([10,d]);
 
