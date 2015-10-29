@@ -4,7 +4,7 @@ bench.chart.horizontal = function() {
 
     var width = 600;
     var height = 600;
-    var padding = 30; 
+    var padding = 70; 
     var dispatch = d3.dispatch("select");
     var data;
     var svg, graph, header;
@@ -81,7 +81,9 @@ bench.chart.horizontal = function() {
 
         bars
             .transition()
-            .attr("width", function(d) { return valueScale(serie.value(d)) });
+            .attr("width", function(d) {
+                return valueScale(serie.value(d))
+            });
 
         var labels = graph
             .selectAll("text")
