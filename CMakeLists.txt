@@ -9,6 +9,11 @@ if(NOT MSVC)
     add_compile_options(-Wall -pedantic)
 endif()
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+    # Force static build
+    set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
+endif()
+
 include_directories(${CMAKE_SOURCE_DIR} ${QDB_API_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/thirdparty)
 add_subdirectory(bench/app)
 add_subdirectory(bench/core)
@@ -44,9 +49,16 @@ if(WIN32)
 endif()
 
 set(CPACK_PACKAGE_VERSION "2.0.0")
+set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0) 
 include(CPack)
 install(TARGETS qdb-benchmark
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
 )
+
+if(WIN32)
+    install(FILES ${QDB_API_DLL} DESTINATION bin)
+else()
+    install(FILES ${QDB_API} DESTINATION lib)
+endif()
