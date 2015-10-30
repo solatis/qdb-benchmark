@@ -1,7 +1,6 @@
 if (!bench.chart) bench.chart = {};
 
 bench.chart.lineChart = function() {
-
     var width = 600;
     var height = 600;
     var leftPadding = 80;
@@ -12,23 +11,13 @@ bench.chart.lineChart = function() {
 
     var headerHeight = 30;
     var headerWidth = 300;
-    var selectedSerie = 0;
 
     var series = lineSeries;
 
     function chart(container) {
-
         header = bench.chart
             .selector(series)
-            .on("select", function(inc, absolute) {
-                inc = Number(inc);
-                if (absolute)
-                    selectedSerie = inc;
-                else
-                    selectedSerie += series.length + inc;
-                    selectedSerie += (series.length + inc) % series.length;
-                update();
-            });
+            .on("select", function(idx) { update(); });
         header(container);
 
         svg = container.append("svg")
@@ -47,8 +36,8 @@ bench.chart.lineChart = function() {
 
     chart.update = update;
     function update() {
-        var serie = series[selectedSerie % series.length];
-        header.text(selectedSerie % series.length, serie.name);
+        var serie = series[header.selected()];
+        header.text(header.selected(), serie.name);
 
         var lines = serie.lines(data);
         var timeMax = d3.max(lines[0], function(d){return d.time})

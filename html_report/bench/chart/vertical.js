@@ -1,28 +1,19 @@
 if (!bench.chart) bench.chart = {};
 
 bench.chart.vertical = function() {
-
     var width = 600;
     var height = 600;
     var padding = 30;
     var dispatch = d3.dispatch("select");
     var data;
     var svg, graph, header;
-    var selectedSerie = 0;
     var testSeries = d3.values(bench.series.tests);
 
     function chart(container) {
         console.log("chart(container)");
         header = bench.chart
             .selector(testSeries)
-            .on("select", function(inc, absolute) {
-                inc = Number(inc);
-                if (absolute)
-                    selectedSerie = inc;
-                else
-                    selectedSerie += (testSeries.length + inc) % testSeries.length;
-                update();
-            });
+            .on("select", function(idx) { update(); });
         header(container);
 
         svg = container
@@ -48,8 +39,8 @@ bench.chart.vertical = function() {
     }
 
     function update() {
-        var serie = testSeries[selectedSerie % testSeries.length];
-        header.text(selectedSerie % testSeries.length, serie.name);
+        var serie = testSeries[header.selected()];
+        header.text(header.selected(), serie.name);
 
         var xScale = d3.scale.ordinal()
             .domain(bench.getContentSizes(data))

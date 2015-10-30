@@ -1,28 +1,18 @@
 if (!bench.chart) bench.chart = {};
 
 bench.chart.bubble = function() {
-
     var width = 600;
     var height = 600;
     var padding = 30;
     var dispatch = d3.dispatch("select");
     var data;
     var svg, header, graph;
-    var selectedSerie = 0;
     var testSeries = d3.values(bench.series.tests);
 
     function chart(container) {
-
         header = bench.chart
             .selector(testSeries)
-            .on("select", function(inc, absolute) {
-                inc = Number(inc);
-                if (absolute)
-                    selectedSerie = inc;
-                else
-                    selectedSerie += (testSeries.length + inc) % testSeries.length;
-                update();
-            });
+            .on("select", function(idx) { update(); });
         header(container);
 
         svg = container.append("svg")
@@ -48,7 +38,8 @@ bench.chart.bubble = function() {
     }
 
     function update() {
-        var serie = testSeries[selectedSerie%testSeries.length];
+        var serie = testSeries[header.selected()];
+        header.text(header.selected(), serie.name);
 
         var sizeValues = bench.getContentSizes(data);
         var threadsValues = bench.getThreadCounts(data);
@@ -60,9 +51,7 @@ bench.chart.bubble = function() {
 
         var valueScale = d3.scale.log()
             .domain(bench.getValueExtent(data, serie))
-            .range([10,d]);
-
-        header.text(selectedSerie % testSeries.length, serie.name);
+            .range([30,d]);
 
         var circles = graph
             .selectAll("circle")
