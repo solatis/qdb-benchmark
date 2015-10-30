@@ -17,7 +17,7 @@ h2 {
 
 thead {
     background: #0a1b25;
-    color: white;    
+    color: white;
 }
 
 th, td {
@@ -136,8 +136,11 @@ div.detail > svg {
 }
 
 .header > select {
-    -webkit-appearance: none;  /*Removes default chrome and safari style*/
-    -moz-appearance: none;     /*Removes default style Firefox*/
+    -webkit-appearance: none; /*Removes default chrome and safari style*/
+       -moz-appearance: none; /*Removes default style Firefox*/
+        -ms-appearance: none; /*Removes default style MS IE/Edge*/
+         -o-appearance: none; /*Removes default style Opera*/
+            appearance: none; /*Removes default style*/
     /*background-color: inherit;*/ /* Doesn't work on IE */
     background-color: #0b334c;
     border: none;   /*Removes border*/
