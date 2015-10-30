@@ -4,9 +4,9 @@ bench.chart.lineChart = function() {
 
     var width = 600;
     var height = 600;
-    var leftPadding = 80; 
-    var rightPadding = 80; 
-    var padding = 30; 
+    var leftPadding = 80;
+    var rightPadding = 80;
+    var padding = 30;
     var data;
     var svg, header;
 
@@ -118,7 +118,7 @@ bench.chart.lineChart = function() {
 
         var valueAxis = d3.svg.axis().scale(valueScale).orient("left")
             .tickFormat(function(d) { return serie.unit(d); })
-        svg.selectAll(".left-axis").call(valueAxis); 
+        svg.selectAll(".left-axis").call(valueAxis);
     }
 
     chart.data = function(value) {

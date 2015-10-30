@@ -4,7 +4,7 @@ bench.chart.horizontal = function() {
 
     var width = 600;
     var height = 600;
-    var padding = 70; 
+    var padding = 70;
     var dispatch = d3.dispatch("select");
     var data;
     var svg, graph, header;

@@ -4,7 +4,7 @@ bench.chart.bubble = function() {
 
     var width = 600;
     var height = 600;
-    var padding = 30; 
+    var padding = 30;
     var dispatch = d3.dispatch("select");
     var data;
     var svg, header, graph;
@@ -53,7 +53,7 @@ bench.chart.bubble = function() {
         var sizeValues = bench.getContentSizes(data);
         var threadsValues = bench.getThreadCounts(data);
 
-        var d = d3.min([(width-padding*2) / sizeValues.length, (height-padding*2) / threadsValues.length]) - 2;    
+        var d = d3.min([(width-padding*2) / sizeValues.length, (height-padding*2) / threadsValues.length]) - 2;
 
         var sizeScale = d3.scale.ordinal().domain(sizeValues).rangePoints([d/2+padding,width-d/2-padding]);
         var threadsScale = d3.scale.ordinal().domain(threadsValues).rangePoints([d/2+padding,height-d/2-padding]);
@@ -81,7 +81,7 @@ bench.chart.bubble = function() {
         circles
             .classed("error", function(d) {return !!d.error})
             .transition()
-            .attr("r", get_radius)            
+            .attr("r", get_radius)
 
         circles
             .enter()
